@@ -5,10 +5,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //movement
     public InputAction MoveAction;
+    public float speed = 3.0f;
 
+    //rigd fix
     Rigidbody2D rigidbody2d;
     Vector2 move;
+
+    //Health
+    public int maxHealth = 5;
+    int currentHealth = 1;
+    public int health { get { return currentHealth; } }
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +24,8 @@ public class PlayerController : MonoBehaviour
         MoveAction.Enable();
 
         rigidbody2d = GetComponent<Rigidbody2D>();
+
+       //currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -32,4 +42,10 @@ public class PlayerController : MonoBehaviour
         rigidbody2d.MovePosition(position);
     }
 
+    public void ChangeHealth(int amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+
+        Debug.Log(currentHealth + "/" + maxHealth);
+    }
 }
