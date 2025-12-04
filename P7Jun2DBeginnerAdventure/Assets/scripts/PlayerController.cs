@@ -5,6 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //Temporary invincibilty
+    public float timeInvincible = 2.0f;
+    bool isInvincible;
+    float damageCooldown;
+
     //movement
     public InputAction MoveAction;
     public float speed = 3.0f;
@@ -15,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     //Health
     public int maxHealth = 5;
-    int currentHealth = 1;
+    int currentHealth;
     public int health { get { return currentHealth; } }
 
     // Start is called before the first frame update
@@ -25,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
         rigidbody2d = GetComponent<Rigidbody2D>();
 
-       //currentHealth = maxHealth;
+       currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -33,7 +38,15 @@ public class PlayerController : MonoBehaviour
 
     {
         move = MoveAction.ReadValue<Vector2>();
-        Debug.Log(move);
+
+        if (isInvincible)
+        {
+            if (damageCooldown < 0)
+            {
+                isInvincible = false;
+            }
+        }
+
     }
 
     void FixedUpdate()
@@ -44,6 +57,17 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeHealth(int amount)
     {
+        if (amount < 0)
+        {
+            if (isInvincible)
+            {
+                return;
+            }
+            isInvincible = true;
+            damageCooldown = timeInvincible;
+        }
+
+
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
 
         Debug.Log(currentHealth + "/" + maxHealth);

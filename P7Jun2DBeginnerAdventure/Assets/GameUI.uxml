@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="healthbarbackground" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/art/HealthbarSprites/Doppel_Health_background.png?fileID=21300000&amp;guid=3a20a91c723596448a5edb816fa1502f&amp;type=3#Doppel_Health_background&quot;); width: 726px; height: 452px; -unity-background-scale-mode: scale-to-fit;">
+        <ui:VisualElement name="CharacterPortrait" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/art/HealthbarSprites/Doppel_icon.png?fileID=21300000&amp;guid=51b8d5621f6248e469619a3e41d6f039&amp;type=3#Doppel_icon&quot;); height: 444px; width: 711px;">
+            <ui:VisualElement name="HealthbarContaineer" style="flex-grow: 0; width: 482px; height: 459px; -unity-background-scale-mode: scale-to-fit;">
+                <ui:VisualElement name="healthbar" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/art/HealthbarSprites/Doppel_health_bar.png?fileID=21300000&amp;guid=712fcc5332ec1ed4888e08051267034a&amp;type=3#Doppel_health_bar&quot;); height: 448px; width: 726px; -unity-background-scale-mode: scale-to-fit; position: absolute;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

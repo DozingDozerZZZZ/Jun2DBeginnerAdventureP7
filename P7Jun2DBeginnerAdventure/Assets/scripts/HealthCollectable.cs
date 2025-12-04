@@ -8,10 +8,12 @@ public class HealthCollectable : MonoBehaviour
     {
         PlayerController controller = other.GetComponent<PlayerController>();
 
-        if (controller != null && controller.currentHealth < controller.maxHealth)
+        if (controller != null && controller.health < controller.maxHealth)
         {
             controller.ChangeHealth(1);
             Destroy(gameObject);
+
+            Debug.Log("Object that gained 1 health" + other);
         }
 
     }
