@@ -13,7 +13,7 @@ public class HealthCollectable : MonoBehaviour
             controller.ChangeHealth(1);
             Destroy(gameObject);
 
-            Debug.Log("Object that gained 1 health" + other);
+        
         }
 
     }
