@@ -7,27 +7,34 @@ public class Projectile : MonoBehaviour
 {
     public GameObject projectilePrefab;
 
-    Rigidbody2D rigidbody;
+    Rigidbody2D rigidbody2d;
     // Start is called before the first frame update
     void Awake()
     {
-        rigidbody2d = GetComponent<Rigidbody2D>(); 
+        rigidbody2d = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+      if (transform.position.magnitude > 100.0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Launch(Vector2 direction,float force)
     {
-        rigidbody.AddForce(direction * force);
+        GetComponent<Rigidbody>().AddForce(direction * force);
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Projectile collision with" +  other.gameObject);
-        Destroy(gameObject);
-    }
-    void Launch()
-    {
-        GameObject projectileObject = Instantiate (projectilePrefab,rigidbody2d.position + Vector2.up * 0.5f,Quaternion.identity);
+       EnemyController enemy = other.GetComponent<EnemyController>();
+        if(enemy != null)
+         {
+             enemy.Fix();
 
-        Projectile projectile = projectileObject.GetComponent<Projectile>();
-        projectile.Launch(
+               Destroy(gameObject);
+        }
     }
+   
 }

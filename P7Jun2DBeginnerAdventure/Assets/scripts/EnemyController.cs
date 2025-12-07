@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     public float speed;
     Rigidbody2D rigidbody2d;
     public bool vertical;
+    bool broken = true;
 
     public float changetime = 3.0f;
     float timer;
@@ -55,9 +56,15 @@ public class EnemyController : MonoBehaviour
             animator.SetFloat("Move Y", 0);
         }
         rigidbody2d.MovePosition(position);
+
+        if(!broken)
+        {
+            return;
+        }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
+        EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
 
         if(player != null)
@@ -65,5 +72,17 @@ public class EnemyController : MonoBehaviour
             player.ChangeHealth(-1);
         }
 
+    }
+
+    public void Fix()
+    {
+        broken = false;
+        GetComponent<Rigidbody2D>().simulated = false;
+        animator.SetTrigger("Fixed");
+    }
+
+    private void OnCollisionEnter2D(Collision other)
+    {
+        Destroy(gameObject);
     }
 }
