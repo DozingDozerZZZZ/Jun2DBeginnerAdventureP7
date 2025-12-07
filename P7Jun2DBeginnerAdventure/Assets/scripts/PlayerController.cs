@@ -27,11 +27,17 @@ public class PlayerController : MonoBehaviour
     //animation
     Animator animator;
     Vector2 moveDirection = new Vector2(1, 0);
+
+    public InputAction talkAction;
+
+
     public GameObject projectilePrefab;
 
     // Start is called before the first frame update
     void Start()
     {
+        talkAction.Enable();
+
         MoveAction.Enable();
 
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -71,6 +77,11 @@ public class PlayerController : MonoBehaviour
         {
             Launch();
         }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            FindFriend();
+        }
     }
 
     void FixedUpdate()
@@ -84,18 +95,19 @@ public class PlayerController : MonoBehaviour
         if (amount < 0)
         {
             if (isInvincible)
-            {
+
                 return;
-            }
+
             isInvincible = true;
             damageCooldown = timeInvincible;
 
             animator.SetTrigger("Hit");
 
 
-            currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-            UIhandler.instance.SetHealthValue(currentHealth / (float)maxHealth);
         }
+
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        UIhandler.instance.SetHealthValue(currentHealth / (float)maxHealth);
     }
     void Launch()
     {
@@ -104,6 +116,15 @@ public class PlayerController : MonoBehaviour
         projectile.Launch(moveDirection, 300);
 
         animator.SetTrigger("Launch");
+    }
+    void FindFriend()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, moveDirection, 1.5f, LayerMask.GetMask("NPC"));
+
+        if (hit.collider != null)
+        {
+           Debug.Log("Raycast has hit" + hit.collider.gameObject);
+        }
     }
 
 }

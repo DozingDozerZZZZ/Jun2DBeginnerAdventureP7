@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
 
     public void Launch(Vector2 direction,float force)
     {
-        GetComponent<Rigidbody>().AddForce(direction * force);
+        rigidbody2d.AddForce(direction * force);
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -32,9 +32,9 @@ public class Projectile : MonoBehaviour
         if(enemy != null)
          {
              enemy.Fix();
-
-               Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
-   
+
+
 }

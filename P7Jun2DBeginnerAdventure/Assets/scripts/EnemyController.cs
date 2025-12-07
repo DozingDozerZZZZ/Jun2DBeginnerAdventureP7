@@ -64,7 +64,6 @@ public class EnemyController : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
 
         if(player != null)
@@ -77,12 +76,7 @@ public class EnemyController : MonoBehaviour
     public void Fix()
     {
         broken = false;
-        GetComponent<Rigidbody2D>().simulated = false;
+       rigidbody2d.simulated = false;
         animator.SetTrigger("Fixed");
-    }
-
-    private void OnCollisionEnter2D(Collision other)
-    {
-        Destroy(gameObject);
     }
 }
