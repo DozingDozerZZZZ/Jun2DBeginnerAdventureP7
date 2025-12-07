@@ -5,46 +5,88 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //Temporary invincibilty
+    public float timeInvincible = 2.0f;
+    bool isInvincible;
+    float damageCooldown;
+
+    //movement
+    public InputAction MoveAction;
+    public float speed = 3.0f;
+
+    //rigd fix
+    Rigidbody2D rigidbody2d;
+    Vector2 move;
+
+    //Health
+    public int maxHealth = 5;
+    int currentHealth;
+    public int health { get { return currentHealth; } }
+
+    //animation
+    Animator animator;
+    Vector2 moveDirection = new Vector2(1, 0);
+
     // Start is called before the first frame update
     void Start()
     {
+        MoveAction.Enable();
 
+        rigidbody2d = GetComponent<Rigidbody2D>();
+
+        currentHealth = maxHealth;
+
+        animator = GetComponent <Animator>();
     }
 
     // Update is called once per frame
     void Update()
+
     {
-        float horizonal = 0.0f;
-        if (Keyboard.current.leftArrowKey.isPressed)
+        move = MoveAction.ReadValue<Vector2>();
+
+        if (isInvincible)
         {
-
-            horizonal = -1.0f;
-
-        }
-        else if (Keyboard.current.rightArrowKey.isPressed)
-        {
-
-            horizonal = 1.0f;
-
+            damageCooldown -= Time.deltaTime;
+            if (damageCooldown < 0)
+            {
+                isInvincible = false;
+            }
         }
 
-        Debug.Log(horizonal);
-
-
-        float vertical = 0.0f;
-        if (Keyboard.current.upArrowKey.isPressed)
+        if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
         {
-            vertical = 1.0f;
+            moveDirection.Set(move.x,move.y);
+            moveDirection.Normalize();
         }
-        else if (Keyboard.current.downArrowKey.isPressed)
-        {
-            vertical = -1.0f;
-        }
-        Debug.Log(vertical);
+        animator.SetFloat("Look X", moveDirection.x);
+        animator.SetFloat("Look Y", moveDirection.y);
+        animator.SetFloat("Speed", move.magnitude);
+    }
 
-        Vector2 position = transform.position;
-        position.x = position.x + 0.1f * horizonal;
-        position.y = position.y + 0.1f * vertical;
-        transform.position = position;
+    void FixedUpdate()
+    {
+        Vector2 position = (Vector2)rigidbody2d.position + move * 3.0f * Time.deltaTime;
+        rigidbody2d.MovePosition(position);
+    }
+
+    public void ChangeHealth(int amount)
+    {
+        if (amount < 0)
+        {
+            if (isInvincible)
+            {
+                return;
+            }
+            isInvincible = true;
+            damageCooldown = timeInvincible;
+
+            animator.SetTrigger("Hit");
+        }
+
+
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+
+        UIhandler.instance.SetHealthValue(currentHealth / (float)maxHealth);
     }
 }
