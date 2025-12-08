@@ -121,9 +121,10 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, moveDirection, 1.5f, LayerMask.GetMask("NPC"));
 
+        NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
         if (hit.collider != null)
         {
-           Debug.Log("Raycast has hit" + hit.collider.gameObject);
+           UIhandler.instance.DisplayDialogue();
         }
     }
 

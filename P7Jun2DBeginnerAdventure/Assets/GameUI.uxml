@@ -1,9 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="dialog" src="project://database/Assets/dialog.uxml?fileID=9197481963319205126&amp;guid=46251e59cda7f0b43b33f96f3206da1c&amp;type=3#dialog" />
     <ui:VisualElement name="healthbarbackground" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UnityTechnologies/StarterAsset/Art/Ducko/UI/UIHealthFrame.png?fileID=21300000&amp;guid=b47cdbd2062c5e64ba5a0bf3f6b045b1&amp;type=3#UIHealthFrame&quot;); width: 759px; height: 651px; -unity-background-scale-mode: scale-to-fit;">
         <ui:VisualElement name="CharacterPortrait" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/art/HealthbarSprites/Doppel_icon.png?fileID=21300000&amp;guid=51b8d5621f6248e469619a3e41d6f039&amp;type=3#Doppel_icon&quot;); height: 645px; width: 714px; -unity-background-scale-mode: scale-to-fit;">
             <ui:VisualElement name="healthbarContaineer" style="flex-grow: 0; width: 704px; height: 516px; -unity-background-scale-mode: scale-to-fit;">
-                <ui:VisualElement name="healthbar" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UnityTechnologies/StarterAsset/Art/Ducko/UI/UIHealthBar.png?fileID=21300000&amp;guid=39fe000f2b6d9d04b93d6a76310e29aa&amp;type=3#UIHealthBar&quot;); height: 580px; width: 420px; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 29px; left: 314px;" />
+                <ui:VisualElement name="healthbar" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UnityTechnologies/StarterAsset/Art/Ducko/UI/UIHealthBar.png?fileID=21300000&amp;guid=39fe000f2b6d9d04b93d6a76310e29aa&amp;type=3#UIHealthBar&quot;); height: 305px; width: 434px; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 163px; left: 316px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:Instance template="dialog" name="NPCDialogue" style="left: 5%; top: 70%; right: 5%; bottom: 0; position: absolute;" />
 </ui:UXML>
